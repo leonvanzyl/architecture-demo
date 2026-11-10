@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Cpath d=%27M1 8l7-6 7 6v7H1z%27 fill=%27%232f6fde%27/%3E%3C/svg%3E" />
+  <title>House 3D walkthrough</title>
+  <link rel="stylesheet" href="./src/style.css" />
+</head>
+<body>
+  <div id="app"></div>
+  <div id="topbar">
+    <span id="planName" class="title">Loading…</span>
+    <select id="planSelect" title="Choose a plan"></select>
+    <button id="openBtn" title="Open a plan JSON file (or drag-drop one anywhere)">Open…</button>
+    <input id="fileInput" type="file" accept=".json,application/json" hidden />
+    <button id="modeBtn" title="Toggle walk / orbit view (V)">Walk</button>
+    <button id="topBtn" title="Top-down cutaway (T)">Top</button>
+    <span id="levelBtns" title="Cutaway: hide upper levels and roof (0-9)"></span>
+    <button id="notesBtn" title="Plan loader notes">Notes</button>
+    <button id="helpBtn" title="Help (H)">?</button>
+  </div>
+  <div id="roomName"></div>
+  <div id="crosshair"></div>
+  <div id="lockHint">Click to walk · Esc to release mouse</div>
+  <canvas id="minimap" width="260" height="300"></canvas>
+  <div id="joystick"><div id="stick"></div></div>
+  <div id="notes" class="panel hidden"></div>
+  <div id="help" class="panel hidden">
+    <h3>House walkthrough</h3>
+    <table>
+      <tr><td>W A S D / arrows</td><td>walk (Shift = faster)</td></tr>
+      <tr><td>Mouse</td><td>look (click the view to lock the pointer, Esc to release)</td></tr>
+      <tr><td>Touch</td><td>left joystick walks, drag elsewhere to look</td></tr>
+      <tr><td>V</td><td>toggle walk / orbit view</td></tr>
+      <tr><td>T</td><td>top-down cutaway of the current level</td></tr>
+      <tr><td>0 / 1-9</td><td>cutaway: show all / up to level n (hides roof and upper floors)</td></tr>
+      <tr><td>M</td><td>minimap on/off (click it to jump there)</td></tr>
+      <tr><td>R</td><td>back to the front door</td></tr>
+      <tr><td>H</td><td>this help</td></tr>
+    </table>
+    <p>Load another plan with <code>?plan=URL</code>, the plan picker, <b>Open…</b>, or drag a plan JSON onto the page.</p>
+    <p class="small">Format: see SPEC.md (canonical JSON Schema: plan-schema.json).</p>
+  </div>
+  <div id="drop">Drop a plan JSON to rebuild</div>
+  <div id="toast"></div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

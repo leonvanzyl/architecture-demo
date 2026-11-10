@@ -1,0 +1,5 @@
+[
+  { "name": "Cozy 3-Bed (Architect, Concept B)", "url": "./plans/cozy-3-bed.json" },
+  { "name": "Sample: cozy single-storey 3-bed", "url": "./plans/sample.json" },
+  { "name": "Test: small two-storey (stairs, gable)", "url": "./plans/test-two-storey.json" }
+]

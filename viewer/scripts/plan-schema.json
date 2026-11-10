@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "plan-schema.json",
+  "title": "House plan spec for the 3D walkthrough viewer",
+  "description": "Units are metres. Plan coordinates are [x, y] in metres on the ground plane: x increases east, y increases north, origin at the south-west corner of the site or house (state which in meta.origin). Vertical positions come from level elevation. Must match the PDF plan coordinates. Missing optional fields get sensible defaults.",
+  "type": "object",
+  "required": ["meta", "levels", "walls", "rooms"],
+  "properties": {
+    "version": { "type": "string", "default": "1.0" },
+    "meta": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "units": { "const": "m", "default": "m" },
+        "origin": { "type": "string", "description": "e.g. 'south-west corner of site'" },
+        "northAngleDeg": { "type": "number", "default": 0, "description": "Rotation of true north from +y, clockwise" },
+        "pdf": { "type": "string", "description": "Path to the matching PDF" }
+      }
+    },
+    "site": {
+      "type": "object",
+      "description": "Optional plot and outdoor features",
+      "properties": {
+        "boundary": { "$ref": "#/$defs/polygon" },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "type", "polygon"],
+            "properties": {
+              "id": { "type": "string" },
+              "type": { "enum": ["pool", "garden", "lawn", "patio", "deck", "paving", "driveway", "planter", "boundary_wall", "fence"] },
+              "name": { "type": "string" },
+              "polygon": { "$ref": "#/$defs/polygon" },
+              "elevation": { "type": "number", "default": 0, "description": "Top surface height (m)" },
+              "depth": { "type": "number", "description": "Pools: water depth (m)" },
+              "height": { "type": "number", "description": "Walls/fences/planters: height (m)" },
+              "material": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "levels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "elevation"],
+        "properties": {
+          "id": { "type": "string", "examples": ["ground", "first"] },
+          "name": { "type": "string" },
+          "elevation": { "type": "number", "description": "Finished floor level (m)" },
+          "height": { "type": "number", "default": 2.7, "description": "Floor-to-ceiling (m)" },
+          "slabThickness": { "type": "number", "default": 0.2 }
+        }
+      }
+    },
+    "walls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "level", "start", "end"],
+        "properties": {
+          "id": { "type": "string" },
+          "level": { "type": "string" },
+          "start": { "$ref": "#/$defs/point" },
+          "end": { "$ref": "#/$defs/point", "description": "start/end are the wall CENTRELINE" },
+          "thickness": { "type": "number", "default": 0.23, "description": "SA defaults: 0.23 external brick, 0.11 internal" },
+          "height": { "type": "number", "description": "Defaults to the level height" },
+          "exterior": { "type": "boolean", "default": false },
+          "material": { "type": "string" }
+        }
+      }
+    },
+    "openings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "wall", "type", "offset", "width"],
+        "properties": {
+          "id": { "type": "string" },
+          "wall": { "type": "string", "description": "Wall id" },
+          "type": { "enum": ["door", "sliding_door", "garage_door", "window", "opening"] },
+          "offset": { "type": "number", "description": "Distance (m) from wall start to the NEAR EDGE of the opening, along the centreline" },
+          "width": { "type": "number" },
+          "height": { "type": "number", "description": "Default 2.1 for doors, 1.2 for windows" },
+          "sill": { "type": "number", "description": "Height of bottom above floor; default 0 for doors, 0.9 for windows" },
+          "swing": { "enum": ["left", "right", "none"], "description": "Doors, as seen from the room the door opens into" }
+        }
+      }
+    },
+    "rooms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "level", "name", "polygon"],
+        "properties": {
+          "id": { "type": "string" },
+          "level": { "type": "string" },
+          "name": { "type": "string" },
+          "type": { "type": "string", "examples": ["bedroom", "bathroom", "kitchen", "living", "dining", "garage", "passage", "patio"] },
+          "polygon": { "$ref": "#/$defs/polygon", "description": "Inside floor outline, counter-clockwise" },
+          "floorMaterial": { "type": "string", "examples": ["tile", "wood", "carpet", "concrete"] },
+          "outdoor": { "type": "boolean", "default": false, "description": "Covered patio etc.: floor but no ceiling" }
+        }
+      }
+    },
+    "stairs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "fromLevel", "toLevel", "start", "direction", "width", "run"],
+        "properties": {
+          "id": { "type": "string" },
+          "fromLevel": { "type": "string" },
+          "toLevel": { "type": "string" },
+          "start": { "$ref": "#/$defs/point", "description": "Centre of the bottom step's front edge" },
+          "direction": { "type": "number", "description": "Climb direction in degrees: 0 = +y (north), 90 = +x (east)" },
+          "width": { "type": "number" },
+          "run": { "type": "number", "description": "Total horizontal length (m)" },
+          "steps": { "type": "integer" }
+        }
+      }
+    },
+    "roof": {
+      "type": "object",
+      "properties": {
+        "type": { "enum": ["gable", "hip", "flat", "skillion"] },
+        "pitchDeg": { "type": "number", "default": 30 },
+        "overhang": { "type": "number", "default": 0.6 },
+        "ridgeDirection": { "enum": ["x", "y"], "description": "Gable/hip ridge axis" },
+        "material": { "type": "string", "examples": ["concrete_tile", "corrugated_iron", "slate"] },
+        "outline": { "$ref": "#/$defs/polygon", "description": "Optional; defaults to the top level's exterior walls" }
+      }
+    },
+    "furniture": {
+      "type": "array",
+      "description": "Optional placeholders",
+      "items": {
+        "type": "object",
+        "required": ["type", "room", "position"],
+        "properties": {
+          "type": { "type": "string", "examples": ["bed_double", "bed_single", "sofa", "dining_table", "kitchen_counter", "island", "toilet", "basin", "shower", "bath", "wardrobe", "desk", "tv_unit", "car"] },
+          "room": { "type": "string" },
+          "position": { "$ref": "#/$defs/point", "description": "Centre point" },
+          "rotation": { "type": "number", "default": 0, "description": "Degrees" },
+          "size": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3, "description": "Optional [w, d, h]" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "point": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
+    "polygon": { "type": "array", "items": { "$ref": "#/$defs/point" }, "minItems": 3 }
+  }
+}
