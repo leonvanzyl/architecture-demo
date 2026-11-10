@@ -47,14 +47,16 @@ Validate any plan with `npm run validate` (all files in `public/plans/`) or
 
 ### Opening types
 `door` (hinged; the viewer draws the leaf open 90° into the room, using `swing` for the hinge side),
-`sliding_door` (aluminium stacker: one panel is drawn slid open, on whichever end is not blocked by furniture),
+`sliding_door` (aluminium stacker: one end panel is drawn slid open, normally the panel nearest the wall end; it switches to the other end only if furniture blocks that one),
 `garage_door` (closed panel), `window` (frame, mullions and glass; you can't walk through it), `opening` (an empty void).
 
 ### Site feature types
 `pool` (recessed and tiled, with water at −0.12 m, `depth`, and a 300 mm coping; you can't walk in),
 `lawn`, `garden` (grass; a garden also gets shrubs, grasses and trees along its edges),
 `patio`, `deck` (timber, raised to `elevation`), `paving`, `driveway`, `planter` (a raised bed at `height`),
-`boundary_wall` / `fence` (drawn along the polygon edges; gaps are left automatically where a driveway or path meets the line).
+`boundary_wall` / `fence`. There are two encodings:
+(a) **footprint**: a thin closed rectangle (≤ 0.6 m wide) is the wall's plan outline and is extruded to `height` (Rev B uses one feature per segment, with real gate gaps);
+(b) **centreline**: any other polygon is read as a wall/fence run along its edges, and gaps are left automatically where a driveway or path crosses it (fallback).
 
 ### Materials (free text, matched by keyword)
 * walls: `face_brick` / `brick`, `plaster_white` / `plaster` (default), `grey` / `charcoal`, `timber` / `cladding`, `concrete` / `stone`. Interior faces of exterior walls are always white plaster.
@@ -74,10 +76,12 @@ Validate any plan with `npm run validate` (all files in `public/plans/`) or
 It also adjusts geometry:
 * clamps openings that run past the end of their wall or above its top, and warns about overlapping openings;
 * turns wall-hugging furniture so its back is to the nearest wall, and turns sofas to face the TV;
-* trims long items (counters, wardrobes and so on) that block a doorway, and warns about other doorway clashes;
+* trims long items (counters, wardrobes and so on) that block a doorway, and warns about other doorway clashes. This is a fallback: Rev B needs no trimming;
 * fills the small gaps between room polygons (for example under walls) with a slab under each room, 120 mm bigger all round;
 * runs exterior walls up through the floor slab of the level above;
-* adds posts under roof corners that have no wall beneath (covered patios);
+* draws short stand-alone wall sections (≤ 0.6 m long and ≤ 2.5 × their thickness, no openings, e.g. 150 × 150 patio posts) as true columns with no corner extensions;
+* stops walls that continue in a collinear wall (e.g. W3a → W3b) at the shared point, so a brick face changes to plaster exactly there with no overlap;
+* adds posts under roof corners that have no wall beneath (covered patios). This is a fallback that is skipped when the plan has its own post walls;
 * cuts stairwell holes in the upper floor and in the ceiling below, and puts a glass balustrade around the hole.
 
 Everything it changes is listed under **Notes (n)** in the toolbar and in the browser console.

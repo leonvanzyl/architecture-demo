@@ -6,7 +6,7 @@
     "origin": "south-west corner of site (street boundary along y=0, garden to the north)",
     "northAngleDeg": 0,
     "pdf": "/workspace/architecture/cozy-3-bed/cozy-3-bed-plans.pdf",
-    "notes": "Single storey. Site 20 x 30 m (600 m2). Walls 230 mm external brick, 110 mm internal. Coordinates match the PDF plan grid.",
+    "notes": "Rev B: north wall split (W3a face brick, W3b plaster), patio posts P1/P2 added as 150 mm walls, boundary wall split into segments with a 1.0 m pedestrian gate and 3.2 m driveway gate, garage door moved clear of the kitchen counter, furniture clearances fixed. Boundary wall features are thin footprint rectangles (0.23 m wide) to extrude to their height. Single storey. Site 20 x 30 m (600 m2). Walls 230 mm external brick, 110 mm internal. Coordinates match the PDF plan grid.",
     "areas_m2": {
       "house_footprint_external": 122.1,
       "garage_external": 22.4,
@@ -35,15 +35,65 @@
     ],
     "features": [
       {
-        "id": "boundary",
+        "id": "bw-west",
         "type": "boundary_wall",
-        "name": "Boundary wall",
+        "name": "Boundary wall (west)",
         "polygon": [
           [
             0,
             0
           ],
           [
+            0.23,
+            0
+          ],
+          [
+            0.23,
+            30
+          ],
+          [
+            0,
+            30
+          ]
+        ],
+        "height": 1.8,
+        "material": "plaster"
+      },
+      {
+        "id": "bw-north",
+        "type": "boundary_wall",
+        "name": "Boundary wall (north)",
+        "polygon": [
+          [
+            0.23,
+            29.77
+          ],
+          [
+            19.77,
+            29.77
+          ],
+          [
+            19.77,
+            30
+          ],
+          [
+            0.23,
+            30
+          ]
+        ],
+        "height": 1.8,
+        "material": "plaster"
+      },
+      {
+        "id": "bw-east",
+        "type": "boundary_wall",
+        "name": "Boundary wall (east)",
+        "polygon": [
+          [
+            19.77,
+            0
+          ],
+          [
             20,
             0
           ],
@@ -52,8 +102,83 @@
             30
           ],
           [
-            0,
+            19.77,
             30
+          ]
+        ],
+        "height": 1.8,
+        "material": "plaster"
+      },
+      {
+        "id": "bw-south-1",
+        "type": "boundary_wall",
+        "name": "Street wall (west of pedestrian gate)",
+        "polygon": [
+          [
+            0.23,
+            0
+          ],
+          [
+            9.1,
+            0
+          ],
+          [
+            9.1,
+            0.23
+          ],
+          [
+            0.23,
+            0.23
+          ]
+        ],
+        "height": 1.8,
+        "material": "plaster"
+      },
+      {
+        "id": "bw-south-2",
+        "type": "boundary_wall",
+        "name": "Street wall (between gates)",
+        "polygon": [
+          [
+            10.1,
+            0
+          ],
+          [
+            15.2,
+            0
+          ],
+          [
+            15.2,
+            0.23
+          ],
+          [
+            10.1,
+            0.23
+          ]
+        ],
+        "height": 1.8,
+        "material": "plaster"
+      },
+      {
+        "id": "bw-south-3",
+        "type": "boundary_wall",
+        "name": "Street wall (east of driveway gate)",
+        "polygon": [
+          [
+            18.4,
+            0
+          ],
+          [
+            19.77,
+            0
+          ],
+          [
+            19.77,
+            0.23
+          ],
+          [
+            18.4,
+            0.23
           ]
         ],
         "height": 1.8,
@@ -271,10 +396,26 @@
       "material": "plaster"
     },
     {
-      "id": "W3",
+      "id": "W3a",
       "level": "ground",
       "start": [
         15,
+        17
+      ],
+      "end": [
+        8.6,
+        17
+      ],
+      "thickness": 0.23,
+      "height": 2.7,
+      "exterior": true,
+      "material": "face_brick"
+    },
+    {
+      "id": "W3b",
+      "level": "ground",
+      "start": [
+        8.6,
         17
       ],
       "end": [
@@ -284,7 +425,7 @@
       "thickness": 0.23,
       "height": 2.7,
       "exterior": true,
-      "material": "face_brick"
+      "material": "plaster"
     },
     {
       "id": "W4",
@@ -477,6 +618,38 @@
       "height": 2.7,
       "exterior": false,
       "material": "plaster"
+    },
+    {
+      "id": "P1",
+      "level": "ground",
+      "start": [
+        8.6,
+        19.925
+      ],
+      "end": [
+        8.75,
+        19.925
+      ],
+      "thickness": 0.15,
+      "height": 2.7,
+      "exterior": true,
+      "material": "plaster"
+    },
+    {
+      "id": "P2",
+      "level": "ground",
+      "start": [
+        14.965,
+        19.925
+      ],
+      "end": [
+        15.115,
+        19.925
+      ],
+      "thickness": 0.15,
+      "height": 2.7,
+      "exterior": true,
+      "material": "plaster"
     }
   ],
   "openings": [
@@ -522,7 +695,7 @@
     },
     {
       "id": "SD-LIVING",
-      "wall": "W3",
+      "wall": "W3a",
       "type": "sliding_door",
       "offset": 0.6,
       "width": 5.0,
@@ -532,9 +705,9 @@
     },
     {
       "id": "WIN-ENS",
-      "wall": "W3",
+      "wall": "W3b",
       "type": "window",
-      "offset": 7.2,
+      "offset": 0.8,
       "width": 0.9,
       "height": 0.6,
       "sill": 1.5,
@@ -542,9 +715,9 @@
     },
     {
       "id": "SD-MAIN",
-      "wall": "W3",
+      "wall": "W3b",
       "type": "sliding_door",
-      "offset": 9.7,
+      "offset": 3.3,
       "width": 2.4,
       "height": 2.1,
       "sill": 0.0,
@@ -554,10 +727,10 @@
       "id": "WIN-MAIN-W",
       "wall": "W4",
       "type": "window",
-      "offset": 1.8,
-      "width": 1.2,
-      "height": 1.2,
-      "sill": 0.9,
+      "offset": 1.6,
+      "width": 1.6,
+      "height": 0.6,
+      "sill": 1.5,
       "swing": "none"
     },
     {
@@ -574,7 +747,7 @@
       "id": "D-GARAGE",
       "wall": "W2",
       "type": "door",
-      "offset": 1.0,
+      "offset": 3.0,
       "width": 0.8,
       "height": 2.1,
       "sill": 0.0,
@@ -634,7 +807,7 @@
       "id": "D-MAIN",
       "wall": "I2",
       "type": "door",
-      "offset": 2.8,
+      "offset": 2.4,
       "width": 0.8,
       "height": 2.1,
       "sill": 0.0,
@@ -995,10 +1168,10 @@
       "type": "bed_double",
       "room": "main",
       "position": [
-        4.13,
-        15.6
+        3.115,
+        15.0
       ],
-      "rotation": 0,
+      "rotation": 90,
       "size": [
         1.83,
         2.0,
@@ -1009,10 +1182,10 @@
       "type": "wardrobe",
       "room": "main",
       "position": [
-        3.2,
-        13.4
+        5.845,
+        14.2
       ],
-      "rotation": 0,
+      "rotation": 90,
       "size": [
         2.0,
         0.6,
@@ -1023,7 +1196,7 @@
       "type": "bed_double",
       "room": "bed2",
       "position": [
-        3.68,
+        3.2,
         10.6
       ],
       "rotation": 0,
@@ -1051,8 +1224,8 @@
       "type": "bed_single",
       "room": "bed3",
       "position": [
-        6.3,
-        10.4
+        6.0,
+        9.2
       ],
       "rotation": 0,
       "size": [
@@ -1158,11 +1331,11 @@
       "room": "kitchen",
       "position": [
         14.58,
-        10.0
+        9.71
       ],
       "rotation": 90,
       "size": [
-        3.0,
+        1.98,
         0.6,
         0.9
       ]
@@ -1200,7 +1373,7 @@
       "room": "living",
       "position": [
         10.0,
-        15.2
+        14.6
       ],
       "rotation": 90,
       "size": [
@@ -1214,7 +1387,7 @@
       "room": "living",
       "position": [
         8.9,
-        15.2
+        14.6
       ],
       "rotation": 90,
       "size": [

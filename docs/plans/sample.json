@@ -1,0 +1,907 @@
+{
+ "version": "1.0",
+ "meta": {
+  "name": "Sample: cozy single-storey 3-bed with pool",
+  "units": "m",
+  "origin": "south-west corner of site",
+  "northAngleDeg": 0
+ },
+ "site": {
+  "boundary": [
+   [
+    0,
+    0
+   ],
+   [
+    18,
+    0
+   ],
+   [
+    18,
+    30
+   ],
+   [
+    0,
+    30
+   ]
+  ],
+  "features": [
+   {
+    "id": "fence",
+    "type": "fence",
+    "name": "Timber boundary fence",
+    "polygon": [
+     [
+      0,
+      0
+     ],
+     [
+      18,
+      0
+     ],
+     [
+      18,
+      30
+     ],
+     [
+      0,
+      30
+     ]
+    ],
+    "height": 1.6
+   },
+   {
+    "id": "front-lawn",
+    "type": "lawn",
+    "name": "Front lawn",
+    "polygon": [
+     [
+      0.5,
+      0.5
+     ],
+     [
+      6.9,
+      0.5
+     ],
+     [
+      6.9,
+      6.6
+     ],
+     [
+      0.5,
+      6.6
+     ]
+    ]
+   },
+   {
+    "id": "front-garden",
+    "type": "garden",
+    "name": "Front garden",
+    "polygon": [
+     [
+      8.7,
+      0.5
+     ],
+     [
+      14.7,
+      0.5
+     ],
+     [
+      14.7,
+      6.6
+     ],
+     [
+      8.7,
+      6.6
+     ]
+    ]
+   },
+   {
+    "id": "path",
+    "type": "paving",
+    "name": "Front path",
+    "polygon": [
+     [
+      7.2,
+      0
+     ],
+     [
+      8.4,
+      0
+     ],
+     [
+      8.4,
+      6.89
+     ],
+     [
+      7.2,
+      6.89
+     ]
+    ],
+    "material": "concrete slabs"
+   },
+   {
+    "id": "drive",
+    "type": "driveway",
+    "name": "Driveway",
+    "polygon": [
+     [
+      15.3,
+      0
+     ],
+     [
+      17.5,
+      0
+     ],
+     [
+      17.5,
+      8
+     ],
+     [
+      15.3,
+      8
+     ]
+    ],
+    "material": "pavers"
+   },
+   {
+    "id": "garden",
+    "type": "garden",
+    "name": "Back garden",
+    "polygon": [
+     [
+      0.5,
+      16.2
+     ],
+     [
+      17.5,
+      16.2
+     ],
+     [
+      17.5,
+      29.5
+     ],
+     [
+      0.5,
+      29.5
+     ]
+    ]
+   },
+   {
+    "id": "deck",
+    "type": "deck",
+    "name": "Timber deck",
+    "polygon": [
+     [
+      6.0,
+      16.115
+     ],
+     [
+      15.3,
+      16.115
+     ],
+     [
+      15.3,
+      18.6
+     ],
+     [
+      6.0,
+      18.6
+     ]
+    ],
+    "elevation": 0.05,
+    "material": "timber_deck"
+   },
+   {
+    "id": "pool",
+    "type": "pool",
+    "name": "Pool",
+    "polygon": [
+     [
+      8.5,
+      19.0
+     ],
+     [
+      14.0,
+      19.0
+     ],
+     [
+      14.0,
+      22.4
+     ],
+     [
+      8.5,
+      22.4
+     ]
+    ],
+    "depth": 1.4
+   },
+   {
+    "id": "planter",
+    "type": "planter",
+    "name": "Herb planter",
+    "polygon": [
+     [
+      0.5,
+      17.0
+     ],
+     [
+      1.5,
+      17.0
+     ],
+     [
+      1.5,
+      24.0
+     ],
+     [
+      0.5,
+      24.0
+     ]
+    ],
+    "height": 0.45
+   }
+  ]
+ },
+ "levels": [
+  {
+   "id": "ground",
+   "name": "Ground floor",
+   "elevation": 0.0,
+   "height": 2.7,
+   "slabThickness": 0.2
+  }
+ ],
+ "walls": [
+  {
+   "id": "E1",
+   "level": "ground",
+   "start": [
+    3,
+    7
+   ],
+   "end": [
+    15,
+    7
+   ],
+   "thickness": 0.23,
+   "exterior": true,
+   "material": "plaster_white"
+  },
+  {
+   "id": "E2",
+   "level": "ground",
+   "start": [
+    15,
+    7
+   ],
+   "end": [
+    15,
+    16
+   ],
+   "thickness": 0.23,
+   "exterior": true,
+   "material": "plaster_white"
+  },
+  {
+   "id": "E3",
+   "level": "ground",
+   "start": [
+    15,
+    16
+   ],
+   "end": [
+    3,
+    16
+   ],
+   "thickness": 0.23,
+   "exterior": true,
+   "material": "face_brick"
+  },
+  {
+   "id": "E4",
+   "level": "ground",
+   "start": [
+    3,
+    16
+   ],
+   "end": [
+    3,
+    7
+   ],
+   "thickness": 0.23,
+   "exterior": true,
+   "material": "plaster_white"
+  },
+  {
+   "id": "I1",
+   "level": "ground",
+   "start": [
+    7.2,
+    7
+   ],
+   "end": [
+    7.2,
+    16
+   ],
+   "thickness": 0.11,
+   "exterior": false
+  },
+  {
+   "id": "I2",
+   "level": "ground",
+   "start": [
+    8.4,
+    7
+   ],
+   "end": [
+    8.4,
+    16
+   ],
+   "thickness": 0.11,
+   "exterior": false
+  },
+  {
+   "id": "I3",
+   "level": "ground",
+   "start": [
+    3,
+    10.6
+   ],
+   "end": [
+    7.2,
+    10.6
+   ],
+   "thickness": 0.11,
+   "exterior": false
+  },
+  {
+   "id": "I4",
+   "level": "ground",
+   "start": [
+    3,
+    12.4
+   ],
+   "end": [
+    7.2,
+    12.4
+   ],
+   "thickness": 0.11,
+   "exterior": false
+  },
+  {
+   "id": "I5",
+   "level": "ground",
+   "start": [
+    8.4,
+    10.6
+   ],
+   "end": [
+    11.4,
+    10.6
+   ],
+   "thickness": 0.11,
+   "exterior": false
+  },
+  {
+   "id": "I6",
+   "level": "ground",
+   "start": [
+    11.4,
+    7
+   ],
+   "end": [
+    11.4,
+    10.6
+   ],
+   "thickness": 0.11,
+   "exterior": false
+  }
+ ],
+ "openings": [
+  {
+   "id": "WIN-BED2-S",
+   "wall": "E1",
+   "type": "window",
+   "offset": 1.2,
+   "width": 1.5,
+   "height": 1.2,
+   "sill": 0.9
+  },
+  {
+   "id": "D-FRONT",
+   "wall": "E1",
+   "type": "door",
+   "offset": 4.3,
+   "width": 1.0,
+   "height": 2.1,
+   "sill": 0
+  },
+  {
+   "id": "WIN-BED3-S",
+   "wall": "E1",
+   "type": "window",
+   "offset": 6.2,
+   "width": 1.5,
+   "height": 1.2,
+   "sill": 0.9
+  },
+  {
+   "id": "WIN-KIT-S",
+   "wall": "E1",
+   "type": "window",
+   "offset": 9.3,
+   "width": 1.6,
+   "height": 0.9,
+   "sill": 1.1
+  },
+  {
+   "id": "WIN-KIT-E",
+   "wall": "E2",
+   "type": "window",
+   "offset": 1.2,
+   "width": 1.2,
+   "height": 0.9,
+   "sill": 1.1
+  },
+  {
+   "id": "WIN-LIV-E",
+   "wall": "E2",
+   "type": "window",
+   "offset": 5.0,
+   "width": 1.8,
+   "height": 1.2,
+   "sill": 0.9
+  },
+  {
+   "id": "SD-LIVING",
+   "wall": "E3",
+   "type": "sliding_door",
+   "offset": 1.0,
+   "width": 4.0,
+   "height": 2.2,
+   "sill": 0
+  },
+  {
+   "id": "WIN-HALL-N",
+   "wall": "E3",
+   "type": "window",
+   "offset": 6.75,
+   "width": 0.6,
+   "height": 1.2,
+   "sill": 0.9
+  },
+  {
+   "id": "WIN-MAIN-N",
+   "wall": "E3",
+   "type": "window",
+   "offset": 9.0,
+   "width": 1.8,
+   "height": 1.2,
+   "sill": 0.9
+  },
+  {
+   "id": "WIN-MAIN-W",
+   "wall": "E4",
+   "type": "window",
+   "offset": 1.5,
+   "width": 1.2,
+   "height": 1.2,
+   "sill": 0.9
+  },
+  {
+   "id": "WIN-BATH-W",
+   "wall": "E4",
+   "type": "window",
+   "offset": 4.0,
+   "width": 0.6,
+   "height": 0.6,
+   "sill": 1.5
+  },
+  {
+   "id": "WIN-BED2-W",
+   "wall": "E4",
+   "type": "window",
+   "offset": 6.9,
+   "width": 1.2,
+   "height": 1.2,
+   "sill": 0.9
+  },
+  {
+   "id": "D-BED2",
+   "wall": "I1",
+   "type": "door",
+   "offset": 2.5,
+   "width": 0.8,
+   "height": 2.1,
+   "sill": 0
+  },
+  {
+   "id": "D-BATH",
+   "wall": "I1",
+   "type": "door",
+   "offset": 4.1,
+   "width": 0.8,
+   "height": 2.1,
+   "sill": 0
+  },
+  {
+   "id": "D-MAIN",
+   "wall": "I1",
+   "type": "door",
+   "offset": 5.8,
+   "width": 0.8,
+   "height": 2.1,
+   "sill": 0
+  },
+  {
+   "id": "D-BED3",
+   "wall": "I2",
+   "type": "door",
+   "offset": 2.5,
+   "width": 0.8,
+   "height": 2.1,
+   "sill": 0
+  },
+  {
+   "id": "OP-LIVING",
+   "wall": "I2",
+   "type": "opening",
+   "offset": 4.4,
+   "width": 2.6,
+   "height": 2.3,
+   "sill": 0
+  }
+ ],
+ "rooms": [
+  {
+   "id": "bed2",
+   "level": "ground",
+   "name": "Bedroom 2",
+   "type": "bedroom",
+   "polygon": [
+    [
+     3.115,
+     7.115
+    ],
+    [
+     7.145,
+     7.115
+    ],
+    [
+     7.145,
+     10.545
+    ],
+    [
+     3.115,
+     10.545
+    ]
+   ],
+   "floorMaterial": "carpet"
+  },
+  {
+   "id": "bath",
+   "level": "ground",
+   "name": "Bathroom",
+   "type": "bathroom",
+   "polygon": [
+    [
+     3.115,
+     10.655
+    ],
+    [
+     7.145,
+     10.655
+    ],
+    [
+     7.145,
+     12.345
+    ],
+    [
+     3.115,
+     12.345
+    ]
+   ],
+   "floorMaterial": "tile"
+  },
+  {
+   "id": "main",
+   "level": "ground",
+   "name": "Main Bedroom",
+   "type": "bedroom",
+   "polygon": [
+    [
+     3.115,
+     12.455
+    ],
+    [
+     7.145,
+     12.455
+    ],
+    [
+     7.145,
+     15.885
+    ],
+    [
+     3.115,
+     15.885
+    ]
+   ],
+   "floorMaterial": "wood"
+  },
+  {
+   "id": "hall",
+   "level": "ground",
+   "name": "Hall",
+   "type": "passage",
+   "polygon": [
+    [
+     7.255,
+     7.115
+    ],
+    [
+     8.345,
+     7.115
+    ],
+    [
+     8.345,
+     15.885
+    ],
+    [
+     7.255,
+     15.885
+    ]
+   ],
+   "floorMaterial": "tile"
+  },
+  {
+   "id": "bed3",
+   "level": "ground",
+   "name": "Bedroom 3",
+   "type": "bedroom",
+   "polygon": [
+    [
+     8.455,
+     7.115
+    ],
+    [
+     11.345,
+     7.115
+    ],
+    [
+     11.345,
+     10.545
+    ],
+    [
+     8.455,
+     10.545
+    ]
+   ],
+   "floorMaterial": "carpet"
+  },
+  {
+   "id": "kitchen",
+   "level": "ground",
+   "name": "Kitchen",
+   "type": "kitchen",
+   "polygon": [
+    [
+     11.455,
+     7.115
+    ],
+    [
+     14.885,
+     7.115
+    ],
+    [
+     14.885,
+     10.655
+    ],
+    [
+     11.455,
+     10.655
+    ]
+   ],
+   "floorMaterial": "tile"
+  },
+  {
+   "id": "living",
+   "level": "ground",
+   "name": "Living / Dining",
+   "type": "living",
+   "polygon": [
+    [
+     8.455,
+     10.655
+    ],
+    [
+     14.885,
+     10.655
+    ],
+    [
+     14.885,
+     15.885
+    ],
+    [
+     8.455,
+     15.885
+    ]
+   ],
+   "floorMaterial": "wood"
+  }
+ ],
+ "stairs": [],
+ "roof": {
+  "type": "hip",
+  "pitchDeg": 25,
+  "overhang": 0.6,
+  "material": "concrete_tile"
+ },
+ "furniture": [
+  {
+   "type": "bed_double",
+   "room": "main",
+   "position": [
+    5.1,
+    14.6
+   ],
+   "rotation": 0,
+   "size": [
+    1.6,
+    2.0,
+    0.5
+   ]
+  },
+  {
+   "type": "wardrobe",
+   "room": "main",
+   "position": [
+    5.4,
+    12.8
+   ],
+   "rotation": 0,
+   "size": [
+    1.8,
+    0.6,
+    2.2
+   ]
+  },
+  {
+   "type": "bed_single",
+   "room": "bed2",
+   "position": [
+    4.2,
+    9.4
+   ],
+   "rotation": 0
+  },
+  {
+   "type": "desk",
+   "room": "bed2",
+   "position": [
+    6.2,
+    7.5
+   ],
+   "rotation": 0
+  },
+  {
+   "type": "bed_single",
+   "room": "bed3",
+   "position": [
+    10.6,
+    9.3
+   ],
+   "rotation": 0
+  },
+  {
+   "type": "wardrobe",
+   "room": "bed3",
+   "position": [
+    9.6,
+    7.45
+   ],
+   "rotation": 0,
+   "size": [
+    1.6,
+    0.6,
+    2.2
+   ]
+  },
+  {
+   "type": "toilet",
+   "room": "bath",
+   "position": [
+    3.5,
+    11.5
+   ],
+   "rotation": 270
+  },
+  {
+   "type": "basin",
+   "room": "bath",
+   "position": [
+    5.0,
+    12.08
+   ],
+   "rotation": 180
+  },
+  {
+   "type": "bath",
+   "room": "bath",
+   "position": [
+    6.2,
+    11.5
+   ],
+   "rotation": 90,
+   "size": [
+    1.7,
+    0.75,
+    0.55
+   ]
+  },
+  {
+   "type": "kitchen_counter",
+   "room": "kitchen",
+   "position": [
+    13.2,
+    7.44
+   ],
+   "rotation": 0,
+   "size": [
+    3.4,
+    0.6,
+    0.9
+   ]
+  },
+  {
+   "type": "island",
+   "room": "kitchen",
+   "position": [
+    13.2,
+    9.4
+   ],
+   "rotation": 0,
+   "size": [
+    2.0,
+    0.9,
+    0.9
+   ]
+  },
+  {
+   "type": "dining_table",
+   "room": "living",
+   "position": [
+    13.2,
+    12.0
+   ],
+   "rotation": 0,
+   "size": [
+    1.8,
+    0.9,
+    0.75
+   ]
+  },
+  {
+   "type": "sofa",
+   "room": "living",
+   "position": [
+    10.4,
+    14.3
+   ],
+   "rotation": 0,
+   "size": [
+    2.4,
+    0.9,
+    0.8
+   ]
+  },
+  {
+   "type": "tv_unit",
+   "room": "living",
+   "position": [
+    10.4,
+    11.0
+   ],
+   "rotation": 0
+  }
+ ]
+}

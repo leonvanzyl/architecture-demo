@@ -1,0 +1,548 @@
+{
+ "version": "1.0",
+ "meta": {
+  "name": "Test: small two-storey (stairs, gable roof)",
+  "units": "m",
+  "origin": "south-west corner of house"
+ },
+ "site": {
+  "features": [
+   {
+    "id": "lawn",
+    "type": "lawn",
+    "name": "Lawn",
+    "polygon": [
+     [
+      -4,
+      -4
+     ],
+     [
+      12,
+      -4
+     ],
+     [
+      12,
+      11
+     ],
+     [
+      -4,
+      11
+     ]
+    ]
+   },
+   {
+    "id": "patio",
+    "type": "patio",
+    "name": "Patio",
+    "polygon": [
+     [
+      1,
+      7.115
+     ],
+     [
+      7,
+      7.115
+     ],
+     [
+      7,
+      9.5
+     ],
+     [
+      1,
+      9.5
+     ]
+    ]
+   }
+  ]
+ },
+ "levels": [
+  {
+   "id": "ground",
+   "name": "Ground floor",
+   "elevation": 0,
+   "height": 2.8
+  },
+  {
+   "id": "first",
+   "name": "First floor",
+   "elevation": 3.0,
+   "height": 2.6
+  }
+ ],
+ "walls": [
+  {
+   "id": "G1",
+   "level": "ground",
+   "start": [
+    0,
+    0
+   ],
+   "end": [
+    8,
+    0
+   ],
+   "thickness": 0.23,
+   "exterior": true,
+   "material": "plaster_white"
+  },
+  {
+   "id": "G2",
+   "level": "ground",
+   "start": [
+    8,
+    0
+   ],
+   "end": [
+    8,
+    7
+   ],
+   "thickness": 0.23,
+   "exterior": true,
+   "material": "plaster_white"
+  },
+  {
+   "id": "G3",
+   "level": "ground",
+   "start": [
+    8,
+    7
+   ],
+   "end": [
+    0,
+    7
+   ],
+   "thickness": 0.23,
+   "exterior": true,
+   "material": "face_brick"
+  },
+  {
+   "id": "G4",
+   "level": "ground",
+   "start": [
+    0,
+    7
+   ],
+   "end": [
+    0,
+    0
+   ],
+   "thickness": 0.23,
+   "exterior": true,
+   "material": "plaster_white"
+  },
+  {
+   "id": "F1",
+   "level": "first",
+   "start": [
+    0,
+    0
+   ],
+   "end": [
+    8,
+    0
+   ],
+   "thickness": 0.23,
+   "exterior": true,
+   "material": "plaster_white"
+  },
+  {
+   "id": "F2",
+   "level": "first",
+   "start": [
+    8,
+    0
+   ],
+   "end": [
+    8,
+    7
+   ],
+   "thickness": 0.23,
+   "exterior": true,
+   "material": "plaster_white"
+  },
+  {
+   "id": "F3",
+   "level": "first",
+   "start": [
+    8,
+    7
+   ],
+   "end": [
+    0,
+    7
+   ],
+   "thickness": 0.23,
+   "exterior": true,
+   "material": "plaster_white"
+  },
+  {
+   "id": "F4",
+   "level": "first",
+   "start": [
+    0,
+    7
+   ],
+   "end": [
+    0,
+    0
+   ],
+   "thickness": 0.23,
+   "exterior": true,
+   "material": "plaster_white"
+  },
+  {
+   "id": "FI1",
+   "level": "first",
+   "start": [
+    5.6,
+    0
+   ],
+   "end": [
+    5.6,
+    7
+   ],
+   "thickness": 0.11
+  },
+  {
+   "id": "FI2",
+   "level": "first",
+   "start": [
+    0,
+    3.5
+   ],
+   "end": [
+    5.6,
+    3.5
+   ],
+   "thickness": 0.11
+  },
+  {
+   "id": "GI1",
+   "level": "ground",
+   "start": [
+    5.0,
+    4.6
+   ],
+   "end": [
+    8,
+    4.6
+   ],
+   "thickness": 0.11
+  }
+ ],
+ "openings": [
+  {
+   "id": "D-FRONT",
+   "wall": "G1",
+   "type": "door",
+   "offset": 3.0,
+   "width": 1.0
+  },
+  {
+   "id": "GW1",
+   "wall": "G1",
+   "type": "window",
+   "offset": 0.8,
+   "width": 1.6
+  },
+  {
+   "id": "GSD",
+   "wall": "G3",
+   "type": "sliding_door",
+   "offset": 2.0,
+   "width": 3.2
+  },
+  {
+   "id": "GW2",
+   "wall": "G4",
+   "type": "window",
+   "offset": 2.5,
+   "width": 1.4
+  },
+  {
+   "id": "GW3",
+   "wall": "G2",
+   "type": "window",
+   "offset": 5.3,
+   "width": 1.0
+  },
+  {
+   "id": "D-STORE",
+   "wall": "GI1",
+   "type": "door",
+   "offset": 0.3,
+   "width": 0.8
+  },
+  {
+   "id": "FW1",
+   "wall": "F1",
+   "type": "window",
+   "offset": 1.5,
+   "width": 1.6
+  },
+  {
+   "id": "FW2",
+   "wall": "F3",
+   "type": "window",
+   "offset": 4.0,
+   "width": 1.6
+  },
+  {
+   "id": "FW3",
+   "wall": "F2",
+   "type": "window",
+   "offset": 5.2,
+   "width": 1.0
+  },
+  {
+   "id": "FD1",
+   "wall": "FI1",
+   "type": "door",
+   "offset": 1.4,
+   "width": 0.8
+  },
+  {
+   "id": "FD2",
+   "wall": "FI1",
+   "type": "door",
+   "offset": 5.0,
+   "width": 0.8
+  }
+ ],
+ "rooms": [
+  {
+   "id": "living",
+   "level": "ground",
+   "name": "Living / Kitchen",
+   "type": "living",
+   "polygon": [
+    [
+     0.115,
+     0.115
+    ],
+    [
+     7.885,
+     0.115
+    ],
+    [
+     7.885,
+     4.545
+    ],
+    [
+     4.945,
+     4.545
+    ],
+    [
+     4.945,
+     6.885
+    ],
+    [
+     0.115,
+     6.885
+    ]
+   ],
+   "floorMaterial": "tile"
+  },
+  {
+   "id": "store",
+   "level": "ground",
+   "name": "Study",
+   "type": "study",
+   "polygon": [
+    [
+     5.055,
+     4.655
+    ],
+    [
+     7.885,
+     4.655
+    ],
+    [
+     7.885,
+     6.885
+    ],
+    [
+     5.055,
+     6.885
+    ]
+   ],
+   "floorMaterial": "wood"
+  },
+  {
+   "id": "landing",
+   "level": "first",
+   "name": "Landing",
+   "type": "passage",
+   "polygon": [
+    [
+     5.655,
+     0.115
+    ],
+    [
+     7.885,
+     0.115
+    ],
+    [
+     7.885,
+     6.885
+    ],
+    [
+     5.655,
+     6.885
+    ]
+   ],
+   "floorMaterial": "wood"
+  },
+  {
+   "id": "bed1",
+   "level": "first",
+   "name": "Bedroom 1",
+   "type": "bedroom",
+   "polygon": [
+    [
+     0.115,
+     3.555
+    ],
+    [
+     5.545,
+     3.555
+    ],
+    [
+     5.545,
+     6.885
+    ],
+    [
+     0.115,
+     6.885
+    ]
+   ],
+   "floorMaterial": "carpet"
+  },
+  {
+   "id": "bed2",
+   "level": "first",
+   "name": "Bedroom 2",
+   "type": "bedroom",
+   "polygon": [
+    [
+     0.115,
+     0.115
+    ],
+    [
+     5.545,
+     0.115
+    ],
+    [
+     5.545,
+     3.445
+    ],
+    [
+     0.115,
+     3.445
+    ]
+   ],
+   "floorMaterial": "carpet"
+  }
+ ],
+ "stairs": [
+  {
+   "id": "S1",
+   "fromLevel": "ground",
+   "toLevel": "first",
+   "start": [
+    7.3,
+    0.6
+   ],
+   "direction": 0,
+   "width": 0.9,
+   "run": 3.9,
+   "steps": 16
+  }
+ ],
+ "roof": {
+  "type": "gable",
+  "pitchDeg": 35,
+  "overhang": 0.5,
+  "ridgeDirection": "x",
+  "material": "concrete_tile"
+ },
+ "furniture": [
+  {
+   "type": "sofa",
+   "room": "living",
+   "position": [
+    2.5,
+    5.8
+   ],
+   "rotation": 180
+  },
+  {
+   "type": "tv_unit",
+   "room": "living",
+   "position": [
+    2.5,
+    3.6
+   ]
+  },
+  {
+   "type": "kitchen_counter",
+   "room": "living",
+   "position": [
+    0.44,
+    1.6
+   ],
+   "rotation": 270,
+   "size": [
+    2.6,
+    0.6,
+    0.9
+   ]
+  },
+  {
+   "type": "dining_table",
+   "room": "living",
+   "position": [
+    3.5,
+    1.5
+   ],
+   "size": [
+    1.6,
+    0.9,
+    0.75
+   ]
+  },
+  {
+   "type": "desk",
+   "room": "store",
+   "position": [
+    6.5,
+    6.5
+   ]
+  },
+  {
+   "type": "bed_double",
+   "room": "bed1",
+   "position": [
+    2.8,
+    5.8
+   ]
+  },
+  {
+   "type": "bed_single",
+   "room": "bed2",
+   "position": [
+    1.0,
+    1.5
+   ]
+  },
+  {
+   "type": "wardrobe",
+   "room": "bed2",
+   "position": [
+    3.5,
+    3.1
+   ],
+   "rotation": 180
+  }
+ ]
+}

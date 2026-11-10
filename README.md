@@ -1,6 +1,6 @@
 # Cozy 3-Bed House: Architecture Demo
 
-A cozy single-storey ~145 m² three-bedroom contemporary house — Concept B: flat roof, face-brick feature wall, covered patio, timber deck, 6.5 × 3.5 m pool, single garage, on a 600 m² plot. Designed by an AI architect and turned into a browser walkthrough.
+A cozy single-storey ~145 m² three-bedroom contemporary house — Concept B: flat roof, face-brick feature wall, covered patio, timber deck, 6.5 × 3.5 m pool, single garage, on a 600 m² plot. Designed by an AI architect and turned into a browser walkthrough. The published plan is **Rev B**.
 
 ![Aerial view from the north](viewer/screenshots/01-exterior-aerial-north.png)
 
@@ -18,11 +18,19 @@ A cozy single-storey ~145 m² three-bedroom contemporary house — Concept B: fl
 
 The walkable viewer lives in [`viewer/`](viewer/) (see [viewer/README.md](viewer/README.md) and [viewer/SPEC.md](viewer/SPEC.md)). It builds a 3D house from the plan JSON.
 
+## Walk through it now
+
+Stopgap public link (single-file viewer in [`docs/`](docs/)):
+
+[https://raw.githack.com/leonvanzyl/architecture-demo/main/docs/index.html](https://raw.githack.com/leonvanzyl/architecture-demo/main/docs/index.html)
+
+The GitHub Pages URL is [https://leonvanzyl.github.io/architecture-demo/](https://leonvanzyl.github.io/architecture-demo/) once Pages is enabled (Settings → Pages → Source: GitHub Actions).
+
 ## Live demo
 
 [https://leonvanzyl.github.io/architecture-demo/](https://leonvanzyl.github.io/architecture-demo/)
 
-The live demo goes live once GitHub Pages is enabled with source **GitHub Actions**.
+The live demo goes live once Pages is enabled (Settings → Pages → Source: GitHub Actions).
 
 ## Run locally
 

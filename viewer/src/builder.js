@@ -199,9 +199,23 @@ export function buildHouse(plan) {
     w.inside = leftRoom && !rightRoom ? 1 : rightRoom && !leftRoom ? -1 : 0;
     const endMat = w.exterior ? extMat : intMat;
     const mats = [endMat, endMat, intMat, intMat, rightMat, leftMat];
-    const ext = w.thickness / 2 - 0.003; // extend ends to close corners
     const ops = (openingsByWall.get(w.id) || []).slice().sort((a, b) => a.offset - b.offset);
-    let cursor = -ext;
+    // Short stand-alone wall sections (e.g. 150 x 150 patio posts) render as true columns.
+    if (w.length <= 0.6 && w.length <= w.thickness * 2.5 && !ops.length) {
+      const pm = wallBox(w, 0, w.length, z0, z1, w.thickness, extMat);
+      pm.userData.wall = w.id; pm.userData.post = true; g.add(pm);
+      addSeg(w.start, w.end, w.thickness / 2, z0, z1, 'post');
+      w.isPost = true;
+      continue;
+    }
+    // Extend ends to close corners, except where the wall simply continues in a collinear
+    // wall (e.g. W3a -> W3b) so the two faces don't overlap and z-fight.
+    const continues = (pt) => plan.walls.some((o) => o !== w && o.level === w.level && o.length > 0.6 &&
+      [o.start, o.end].some((q) => Math.hypot(q[0] - pt[0], q[1] - pt[1]) < 0.01) &&
+      Math.abs(((o.end[0] - o.start[0]) * w.uy - (o.end[1] - o.start[1]) * w.ux) / o.length) < 0.01);
+    const ext0 = continues(w.start) ? 0 : w.thickness / 2 - 0.003;
+    const ext1 = continues(w.end) ? 0 : w.thickness / 2 - 0.003;
+    let cursor = -ext0;
     const solid = (a0, a1, zb, zt, ghost = false) => {
       const m = wallBox(w, a0, a1, zb, zt, w.thickness, mats);
       if (m) { m.userData.wall = w.id; g.add(m); }
@@ -216,7 +230,7 @@ export function buildHouse(plan) {
       buildOpening(g, w, o, a0, a1, sb, st, addSeg, leftRoom, rightRoom, furnFoot.filter((f) => f.level === w.level));
       cursor = a1;
     }
-    solid(cursor, w.length + ext, z0, z1);
+    solid(cursor, w.length + ext1, z0, z1);
   }
 
   // ---------- floors, base slabs, ceilings
@@ -639,15 +653,28 @@ function buildSite(g, plan, floors, addSeg, addPolyCollider) {
       }
       case 'boundary_wall': case 'fence': {
         const pts = f.polygon;
-        const n = f.closed ? pts.length : pts.length - 1;
+        // Two encodings: a thin footprint rectangle (Rev B style: the wall's plan outline) or a
+        // centreline polyline/loop (fallback: auto gate gaps where a driveway/path crosses it).
+        const segs = [];
+        const edgeL = pts.map((p, i) => Math.hypot(pts[(i + 1) % pts.length][0] - p[0], pts[(i + 1) % pts.length][1] - p[1]));
+        const footprint = f.closed && pts.length === 4 && Math.min(...edgeL) <= 0.6 && Math.abs(polygonArea(pts)) / Math.max(...edgeL) <= 0.6;
+        if (footprint) {
+          const k = edgeL[0] <= edgeL[1] ? 0 : 1; // edges k and k+2 are the short ends
+          const m = (i) => [(pts[i][0] + pts[(i + 1) % 4][0]) / 2, (pts[i][1] + pts[(i + 1) % 4][1]) / 2];
+          segs.push({ a: m(k), b: m(k + 2), t: edgeL[k], footprint: true });
+        } else {
+          const n = f.closed ? pts.length : pts.length - 1;
+          for (let i = 0; i < n; i++) segs.push({ a: pts[i], b: pts[(i + 1) % pts.length], t: f.thickness || 0.23 });
+        }
         const gates = feats.filter((x) => ['driveway', 'paving', 'patio'].includes(x.type));
-        for (let i = 0; i < n; i++) {
-          const a = pts[i], b = pts[(i + 1) % pts.length];
+        for (const sg of segs) {
+          const a = sg.a, b = sg.b;
           const L = Math.hypot(b[0] - a[0], b[1] - a[1]);
+          if (L < 0.05) continue;
           const ux = (b[0] - a[0]) / L, uy = (b[1] - a[1]) / L;
-          // gaps where a driveway/path meets this boundary line
+          // gaps where a driveway/path meets this boundary line (centreline encoding only)
           const cuts = [];
-          for (const gf of gates) {
+          if (!sg.footprint) for (const gf of gates) {
             const near = gf.polygon.filter((p) => Math.abs((p[0] - a[0]) * -uy + (p[1] - a[1]) * ux) < 0.3);
             if (near.length < 2) continue;
             const ts = near.map((p) => (p[0] - a[0]) * ux + (p[1] - a[1]) * uy);
@@ -662,11 +689,12 @@ function buildSite(g, plan, floors, addSeg, addPolyCollider) {
           const wall = { start: a, ux, uy };
           for (const [p0, p1] of pieces) {
             if (f.type === 'boundary_wall') {
-              const t = f.thickness || 0.23;
-              g.add(wallBox(wall, p0 - (p0 === 0 ? t / 2 : 0), p1 + (p1 === L ? t / 2 : 0), e - 0.07, e + f.height, t, [M.plaster(), M.plaster(), M.plaster(), M.plaster(), M.plaster(), M.plaster()]));
-              g.add(wallBox(wall, p0 - (p0 === 0 ? t / 2 : 0), p1 + (p1 === L ? t / 2 : 0), e + f.height, e + f.height + 0.04, t + 0.04, M.charcoal()));
+              const t = sg.t;
+              const eA = sg.footprint ? 0 : t / 2; // footprints are already the full outline
+              g.add(wallBox(wall, p0 - (p0 === 0 ? eA : 0), p1 + (p1 === L ? eA : 0), e - 0.07, e + f.height, t, [M.plaster(), M.plaster(), M.plaster(), M.plaster(), M.plaster(), M.plaster()]));
+              g.add(wallBox(wall, p0 - (p0 === 0 ? eA : 0) - 0.02, p1 + (p1 === L ? eA : 0) + 0.02, e + f.height, e + f.height + 0.04, t + 0.04, M.charcoal()));
               // piers every ~3 m
-              for (let s = p0; s <= p1 + 0.01; s += Math.max(0.5, (p1 - p0) / Math.max(1, Math.round((p1 - p0) / 3)))) g.add(wallBox(wall, s - 0.17, s + 0.17, e - 0.07, e + f.height + 0.06, t + 0.1, M.plaster()));
+              for (let s = p0; s <= p1 + 0.01; s += Math.max(0.5, (p1 - p0) / Math.max(1, Math.round((p1 - p0) / 3)))) { const sc = Math.min(Math.max(s, p0 + 0.17), p1 - 0.17); if (p1 - p0 >= 0.34) g.add(wallBox(wall, sc - 0.17, sc + 0.17, e - 0.07, e + f.height + 0.06, t + 0.1, M.plaster())); }
               addSeg([a[0] + ux * p0, a[1] + uy * p0], [a[0] + ux * p1, a[1] + uy * p1], t / 2, e - 1, e + f.height, 'boundary');
             } else {
               const hgt = f.height;
@@ -692,12 +720,14 @@ export function makeFurniture(f) {
   const wood = M.solid(0xa47c55, 0.6), white = M.solid(0xf4f4f2, 0.35), dark = M.solid(0x2f3033, 0.5);
   const t = f.type;
   if (t.startsWith('bed')) {
-    B(0, 0, 0, w, 0.28, d, M.solid(0x8b7b6b, 0.8));
-    B(0, 0.28, 0.02, w - 0.04, 0.2, d - 0.06, white);
-    B(0, 0.48, -d * 0.12, w - 0.02, 0.06, d * 0.7, M.fabric(0x7b8fa6));
+    // everything stays inside the footprint so a bed placed flush against a wall doesn't clip into it
+    const hb = 0.08, bd = d - hb, bz = -hb / 2;
+    B(0, 0, bz, w, 0.28, bd, M.solid(0x8b7b6b, 0.8));
+    B(0, 0.28, bz + 0.02, w - 0.04, 0.2, bd - 0.06, white);
+    B(0, 0.48, bz - bd * 0.12, w - 0.02, 0.06, bd * 0.7, M.fabric(0x7b8fa6));
     const np = w > 1.2 ? 2 : 1;
-    for (let i = 0; i < np; i++) B(np === 1 ? 0 : (i ? 1 : -1) * w / 4, 0.48, d / 2 - 0.25, np === 1 ? w * 0.7 : w / 2 - 0.08, 0.12, 0.35, M.fabric(0xeeeae2));
-    B(0, 0, d / 2 + 0.04, w + 0.06, 1.05, 0.08, M.solid(0x5b4636, 0.7));
+    for (let i = 0; i < np; i++) B(np === 1 ? 0 : (i ? 1 : -1) * w / 4, 0.48, d / 2 - hb - 0.22, np === 1 ? w * 0.7 : w / 2 - 0.08, 0.12, 0.35, M.fabric(0xeeeae2));
+    B(0, 0, d / 2 - hb / 2, w, 1.05, hb, M.solid(0x5b4636, 0.7));
   } else if (t === 'sofa' || t === 'armchair') {
     const fab = M.fabric(0x8c8f93);
     B(0, 0.08, 0, w, 0.36, d, fab);
